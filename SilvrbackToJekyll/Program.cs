@@ -42,8 +42,8 @@ namespace SilvrbackToJekyll
             {
                 var sb = new StringBuilder(template);
 
-                sb.Replace("{title}", post.title);
-                sb.Replace("{subtitle}", post.subtitle);
+                sb.Replace("{title}", post.title.Quotes());
+                sb.Replace("{subtitle}", post.subtitle.Quotes());
                 sb.Replace("{slug}", post.slug);
                 sb.Replace("{content}", post.content);
                 sb.Replace("{datetime}", post.datetime.ToString("yyyy-MM-dd hh:mm:ss zz"));
@@ -70,6 +70,14 @@ namespace SilvrbackToJekyll
                 .ToList()
                 .ForEach(x => Console.WriteLine($" - {x.Key} ({x.Count()})"));
             
+        }
+    }
+
+    public static class Cleanup
+    {
+        public static string Quotes(this string value)
+        {
+            return value?.Replace("\"", @"\""");
         }
     }
 }
